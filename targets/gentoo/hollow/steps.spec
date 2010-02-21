@@ -10,10 +10,6 @@ EOF
 cat << "EOF" > /etc/resolv.conf
 $[[hollow/files/resolv.conf]]
 EOF
-cat << "EOF" > /etc/locale.gen
-$[[hollow/files/locale.gen]]
-EOF
-locale-gen
 ]
 
 stage4: [
