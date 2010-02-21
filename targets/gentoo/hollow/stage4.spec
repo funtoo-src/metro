@@ -1,6 +1,7 @@
 [collect ../stage/common.spec]
 [collect ../stage/capture/tar.spec]
 [collect ../stage/stage3-derivative.spec]
+[collect ./steps.spec]
 
 [section path/mirror]
 
@@ -15,14 +16,10 @@ name: stage4-$[target/subarch]-$[target/version]
 chroot/run: [
 #!/bin/bash
 $[[steps/setup]]
+$[[steps/hollow/setup]]
+
 export USE="$[portage/USE] bindist"
-
-emerge -C mail-mta/ssmtp || exit 1
-rm -f /var/mail
-emerge net-mail/mailbase -1n || exit 1
-emerge mail-mta/postfix || exit 1
-
-emerge $eopts $[hollow/stage4/packages] || exit 1
+$[[steps/hollow/stage4]]
 ]
 
 [section portage]
