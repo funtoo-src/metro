@@ -32,6 +32,16 @@ export USE="$[portage/USE] bindist"
 env-update && source /etc/profile
 cp /usr/share/zoneinfo/$[hollow/ec2/timezone] /etc/localtime
 
+cat << "EOF" > /etc/fstab
+$[[hollow/files/ec2/fstab]]
+EOF
+
+emerge $eopts net-misc/dhcpcd
+rc-update add net.eth0 default
+
+emerge $eopts net-misc/openssh
+rc-update add sshd default
+
 emerge $eopts $[hollow/ec2/packages]
 
 for service in $[hollow/ec2/services]; do
