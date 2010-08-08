@@ -13,9 +13,12 @@ EOF
 ]
 
 stage4: [
-emerge $eopts -C mail-mta/ssmtp mail-mta/nullmailer || exit 1
-rm -f /var/mail
-emerge $eopts net-mail/mailbase -1 || exit 1
 emerge $eopts mail-mta/postfix || exit 1
 emerge $eopts $[hollow/stage4/packages] || exit 1
+
+rc-update add udev sysinit || exit 2
+
+for i in udev-postmount dcron rsyslog; do
+	rc-update add $i default || exit 2
+done
 ]
