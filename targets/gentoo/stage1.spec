@@ -81,7 +81,7 @@ cat > /tmp/build.py << "EOF"
 $[[files/pythonjunk]]
 EOF
 
-export buildpkgs="$(python /tmp/build.py)"
+export buildpkgs="$(python /tmp/build.py) sys-apps/shadow"
 export STAGE1_USE="$(portageq envvar STAGE1_USE)"
 export USE="-* bindist build xml ${STAGE1_USE}"
 export FEATURES="$FEATURES nodoc noman noinfo"
