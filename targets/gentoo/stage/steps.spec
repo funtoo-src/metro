@@ -101,12 +101,6 @@ cat > /etc/portage/package.mask << "EOF"
 $[[portage/files/package.mask:lax]]
 EOF
 fi
-if [ "$[portage/devices?]" = "yes" ]
-then
-	emerge --oneshot --nodeps sys-apps/makedev || exit 2
-	MAKEDEV -d "$[portage/ROOT]/dev/" "$[portage/devices:lax]"
-	emerge -C sys-apps/makedev
-fi
 if [ -d /var/tmp/cache/probe ]
 then
 $[[probe/setup:lax]]
@@ -151,7 +145,7 @@ fi
 # won't work. This is normally okay.
 
 rm -rf $ROOT/var/tmp/* $ROOT/tmp/* $ROOT/root/* $ROOT/usr/portage $ROOT/var/log/* || exit 5
-rm -rf $ROOT/car/cache/edb/dep/*
+rm -rf $ROOT/var/cache/edb/dep/*
 rm -f $ROOT/etc/{passwd,group,shadow}- $ROOT/etc/.pwd.lock
 rm -f $ROOT/etc/portage/bashrc
 install -d $ROOT/etc/portage
@@ -267,9 +261,9 @@ case "$comp" in
 		if [ -e /usr/bin/pbzip2 ]
 		then
 			# Use pbzip2 for multi-core acceleration
-			pbzip2 -dc "$src" | tar xjpf - -C $[path/chroot] || exit 3
+			pbzip2 -dc "$src" | tar xpf - -C $[path/chroot] || exit 3
 		else
-			tar xjpf "$src" -C $[path/chroot] || exit 3
+			tar xpf "$src" -C $[path/chroot] || exit 3
 		fi
 		;;
 	gz|xz)
