@@ -18,7 +18,7 @@ emerge $eopts $[hollow/stage4/packages] || exit 1
 
 rc-update add udev sysinit || exit 2
 
-for i in udev-postmount dcron rsyslog; do
+for i in udev-postmount dcron syslog-ng; do
 	rc-update add $i default || exit 2
 done
 ]

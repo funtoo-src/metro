@@ -18,10 +18,9 @@ ACCEPT_KEYWORDS="$[portage/ACCEPT_KEYWORDS:zap]"
 ACCEPT_LICENSE="*"
 
 # advanced features
-EMERGE_DEFAULT_OPTS="--quiet --with-bdeps=y --binpkg-respect-use=y --keep-going --usepkg"
 PORTAGE_NICENESS="15"
 EBEEP_IGNORE="yes"
-FEATURES="buildpkg collision-protect noinfo parallel-fetch preserve-libs sfperms strict unmerge-orphans userpriv usersandbox"
+FEATURES="collision-protect noinfo parallel-fetch preserve-libs sfperms strict unmerge-orphans userpriv usersandbox"
 
 # logging related variables:
 PORTAGE_ELOG_SYSTEM="save echo"
