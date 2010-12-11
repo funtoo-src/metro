@@ -14,12 +14,12 @@ setup: [
 gcc-config 1
 source /etc/profile
 export MAKEOPTS="$[portage/MAKEOPTS:zap]"
-export FEATURES="$[portage/FEATURES]"
+export FEATURES="$[portage/FEATURES] safetydance"
 export EMERGE_WARNING_DELAY=0
 export CLEAN_DELAY=0
 export EBEEP_IGNORE=0
 export EPAUSE_IGNORE=0
-export CONFIG_PROTECT="-*"
+export CONFIG_PROTECT="-* /etc/locale.gen"
 if [ -d /var/tmp/cache/compiler ]
 then
 	if ! [ -e /usr/bin/ccache ] 
