@@ -47,5 +47,5 @@ shift
 
 for SUBARCH in "$@"
 do
-	nice -n 39 ionice -c 3 $METRO multi: yes metro/build: $BUILD target/subarch: $SUBARCH target/version: $VERS multi/mode: freshen
+	nice -n 39 ionice -c 3 $METRO multi: yes metro/build: $BUILD target/subarch: $SUBARCH target/version: $VERS multi/mode: full
 done
