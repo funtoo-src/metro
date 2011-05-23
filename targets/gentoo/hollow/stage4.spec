@@ -10,8 +10,8 @@ target: $[:source/subpath]/$[target/name].tar.$[target/compression]
 
 [section target]
 
-name: stage4-$[target/subarch]-$[target/version]
-name/current: stage4-$[target/subarch]-current
+name: stage4-$[:subarch]-$[:build]-$[:version]
+name/current: stage4-current
 
 [section steps]
 
