@@ -77,11 +77,20 @@ chroot/run: [
 #!/bin/bash
 $[[steps/setup]]
 
+# update python if it is available
+emerge -u python || die 
+# switch to new python
+eselect python update || die 
+python-updater || die
+
 cat > /tmp/build.py << "EOF"
 $[[files/pythonjunk]]
 EOF
 
-export buildpkgs="$(python /tmp/build.py) sys-apps/shadow"
+# upgrade portage on stage3 if necessary, before we begin:
+emerge -u sys-apps/portage || die
+
+export buildpkgs="$(python /tmp/build.py)"
 export STAGE1_USE="$(portageq envvar STAGE1_USE)"
 export USE="-* bindist build xml ${STAGE1_USE}"
 export FEATURES="$FEATURES nodoc noman noinfo"
