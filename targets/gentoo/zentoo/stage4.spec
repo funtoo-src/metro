@@ -18,10 +18,10 @@ name/current: stage4-current
 chroot/run: [
 #!/bin/bash
 $[[steps/setup]]
-$[[steps/hollow/setup]]
+$[[steps/zentoo/setup]]
 
 export USE="$[portage/USE] bindist"
-$[[steps/hollow/stage4]]
+$[[steps/zentoo/stage4]]
 ]
 
 [section trigger]

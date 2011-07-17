@@ -1,4 +1,4 @@
-[section hollow/files]
+[section zentoo/files]
 
 make.conf: [
 # These settings were set by the metro build script that automatically built this stage.
