@@ -2,26 +2,22 @@
 [collect ../stage/capture/tar.spec]
 [collect ../stage/stage3-derivative.spec]
 [collect ../stage/symlink.spec]
-[collect ./steps.spec]
 
 [section path/mirror]
 
-target: $[:source/subpath]/$[target/name].tar.$[target/compression]
+target: $[:target/subpath]/$[target/name].tar.$[target/compression]
 
 [section target]
 
-name: stage4-$[:subarch]-$[:build]-$[:version]
-name/current: stage4-current
+name: $[:build]-$[zentoo/name]-$[:subarch]-$[:version]
+name/current: $[:build]-$[zentoo/name]-$[:subarch]-current
 
 [section steps]
 
 chroot/run: [
 #!/bin/bash
 $[[steps/setup]]
-$[[steps/zentoo/setup]]
-
-export USE="$[portage/USE] bindist"
-$[[steps/zentoo/stage4]]
+$[[steps/zentoo/run:zap]]
 ]
 
 [section trigger]
