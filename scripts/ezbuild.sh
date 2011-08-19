@@ -27,7 +27,7 @@ EOF
 
 if [ "$METRO" = "" ]
 then
-	METRO=/usr/bin/metro
+	METRO=$(realpath $(dirname $0)/../metro)
 fi
 
 if [ ! -e $METRO ]
