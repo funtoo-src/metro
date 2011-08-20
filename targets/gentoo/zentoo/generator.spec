@@ -17,7 +17,7 @@ name/current: $[:build]-$[zentoo/name]-$[:subarch]-current
 chroot/run: [
 #!/bin/bash
 $[[steps/setup]]
-$[[steps/zentoo/run:zap]]
+$[[steps/zentoo/run]]
 ]
 
 [section trigger]
