@@ -17,7 +17,7 @@ packages: [
 	sys-fs/mdadm
 	sys-fs/xfsprogs
 	sys-kernel/genkernel
-	sys-kernel/vserver-sources
+	sys-kernel/zentoo-sources
 ]
 
 [section steps/zentoo]
