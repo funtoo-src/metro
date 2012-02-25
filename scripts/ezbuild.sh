@@ -19,7 +19,7 @@ do_help() {
 
   Usage: $0 <build> <arch>..
   Examples:
-    # $0 hollow amd64 i686
+    # $0 zentoo amd64
     # $0 ~funtoo core2
 
 EOF
@@ -29,7 +29,10 @@ if [ "$METRO" = "" ]
 then
 	METRO=$(realpath $(dirname $0)/../metro)
 fi
-
+if ! [ -e "$METRO" ] && [ -x "$(pwd)/metro" ]
+then
+	METRO="$(pwd)/metro"
+fi
 if [ ! -e $METRO ]
 then
 	die "Metro is required for build.sh to run"
@@ -41,11 +44,15 @@ then
 	die "This script requires two or more arguments"
 fi
 
-VERS=`date +%Y%m%d`
 BUILD="$1"
 shift
 
 for SUBARCH in "$@"
 do
-	nice -n 39 ionice -c 3 $METRO multi: yes metro/build: $BUILD target/subarch: $SUBARCH target/version: $VERS multi/mode: full
+	nice -n 39 ionice -c 3 $METRO \
+		multi: yes \
+		multi/mode: ${MODE:-full} \
+		metro/build: $BUILD \
+		target/subarch: $SUBARCH \
+		target/version: ${VERSION:-$(date +%Y%m%d)}
 done
