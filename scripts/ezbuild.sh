@@ -52,7 +52,7 @@ do
 	nice -n 39 ionice -c 3 $METRO \
 		multi: yes \
 		multi/mode: ${MODE:-full} \
-		metro/build: $BUILD \
+		target/build: $BUILD \
 		target/subarch: $SUBARCH \
 		target/version: ${VERSION:-$(date +%Y%m%d)}
 done
