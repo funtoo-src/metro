@@ -186,6 +186,10 @@ then
 	emerge -C dev-util/ccache || exit 1
 fi
 emerge -C $[emerge/packages/clean:zap] || exit 2
+cat <<EOF > /etc/os-release
+NAME="$[release/name:zap]"
+ID=$[release/id:zap]
+EOF
 ]
 
 chroot/test: [
