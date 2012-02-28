@@ -25,18 +25,8 @@ do_help() {
 EOF
 }
 
-if [ "$METRO" = "" ]
-then
-	METRO=$(realpath $(dirname $0)/../metro)
-fi
-if ! [ -e "$METRO" ] && [ -x "$(pwd)/metro" ]
-then
-	METRO="$(pwd)/metro"
-fi
-if [ ! -e $METRO ]
-then
-	die "Metro is required for build.sh to run"
-fi
+ROOT=$(realpath $(dirname $0)/../)
+METRO="${ROOT}"/metro
 
 if [ $# -lt 2 ]
 then
@@ -45,6 +35,7 @@ then
 fi
 
 BUILD="$1"
+VERSION=${VERSION:-$(date +%Y%m%d)}
 shift
 
 for SUBARCH in "$@"
@@ -54,5 +45,7 @@ do
 		multi/mode: ${MODE:-full} \
 		target/build: $BUILD \
 		target/subarch: $SUBARCH \
-		target/version: ${VERSION:-$(date +%Y%m%d)}
+		target/version: $VERSION
+
+	"${ROOT}"/scripts/vbox-create.sh $SUBARCH $VERSION
 done
