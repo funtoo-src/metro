@@ -55,26 +55,36 @@ $[[steps/pack]]
 ]
 
 pack: [
-echo "Compressing $tarout..."
+echo -n "Compressing $tarout using "
 case "$[snapshot/compression]" in
-bz2)
-	if [ -e /usr/bin/pbzip2 ]
-	then
-		pbzip2 -p4 $tarout || die "Snapshot pbzip2 failure"
-	else
-		bzip2 $tarout || die "Snapshot bzip2 failure"
-	fi
-	;;
-gz)
-	gzip -9 $tarout || die "Snapshot gzip failure"
-	;;
-xz)
-	xz $tarout || die "Snapshot xz failure"
-	;;
-*)
-	echo "Unrecognized compression format $[snapshot/compression] specified for snapshot."
-	exit 1
-	;;
+	bz2)
+		if [ -e /usr/bin/pbzip2 ]
+		then
+			echo "pbzip2..."
+			pbzip2 -p4 $tarout || die "Snapshot pbzip2 failure"
+		else
+			echo "bzip2..."
+			bzip2 $tarout || die "Snapshot bzip2 failure"
+		fi
+		;;
+	gz)
+		echo "gzip..."
+		gzip -9 $tarout || die "Snapshot gzip failure"
+		;;
+	xz)
+		if [ -e /usr/bin/pxz ]
+		then
+			echo "pxz..."
+			pxz $tarout || die "Snapshot pxz failure"
+		else
+			echo "xz..."
+			xz $tarout || die "Snapshot xz failure"
+		fi
+		;;
+	*)
+		echo "Unrecognized compression format $[snapshot/compression] specified for snapshot."
+		exit 1
+		;;
 esac
 echo "Snapshot $[path/mirror/snapshot] created."
 ]
