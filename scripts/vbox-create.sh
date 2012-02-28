@@ -35,7 +35,7 @@ VBoxManage storageattach ${NAME} --storagectl "IDE Controller" --type dvddrive -
 VBoxManage startvm ${NAME} --type headless
 
 echo -n "Waiting for quickstart to finish "
-while VBoxManage showvminfo ${NAME}-gen | grep -q State:.*running; do
+while VBoxManage showvminfo ${NAME} | grep -q State:.*running; do
 	echo -n "."
 	sleep 30
 done
