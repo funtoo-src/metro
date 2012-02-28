@@ -1,8 +1,8 @@
-[collect ./generator.spec]
+[collect ../stage4.spec]
 
-[section zentoo]
+[section stage4]
 
-name: host
+name: zentoo-host
 
 [section zentoo/host]
 
@@ -20,7 +20,7 @@ packages: [
 	sys-kernel/zentoo-sources
 ]
 
-[section steps/zentoo]
+[section steps/stage4]
 
 run: [
 emerge $eopts $[zentoo/host/packages] || exit 1

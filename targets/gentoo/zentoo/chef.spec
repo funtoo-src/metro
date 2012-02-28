@@ -1,8 +1,8 @@
-[collect ./generator.spec]
+[collect ../stage4.spec]
 
-[section zentoo]
+[section stage4]
 
-name: chef
+name: zentoo-chef
 
 [section zentoo/chef]
 
@@ -15,7 +15,7 @@ packages: [
 	www-servers/nginx
 ]
 
-[section steps/zentoo]
+[section steps/stage4]
 
 run: [
 emerge $eopts $[zentoo/chef/packages] || exit 1

@@ -1,10 +1,10 @@
-[collect ./generator.spec]
+[collect ../stage4.spec]
 
-[section zentoo]
+[section stage4]
 
-name: base
+name: zentoo-base
 
-[section steps/zentoo]
+[section steps/stage4]
 
 run: [
 # do nothing, just repack
