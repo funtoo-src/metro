@@ -1,4 +1,4 @@
-[collect ../stage4.spec]
+[collect ../stage/stage4-generator.spec]
 
 [section stage4]
 
