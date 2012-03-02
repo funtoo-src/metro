@@ -47,5 +47,5 @@ do
 		target/subarch: $SUBARCH \
 		target/version: $VERSION
 
-	"${ROOT}"/scripts/vbox-create.sh $SUBARCH $VERSION
+	#"${ROOT}"/scripts/vbox-create.sh $SUBARCH $VERSION
 done

@@ -8,11 +8,6 @@ name: zentoo-chef
 
 packages: [
 	app-admin/chef-server
-	dev-db/couchdb
-	dev-java/sun-jdk
-	dev-python/sphinx
-	net-misc/rabbitmq-server
-	www-servers/nginx
 ]
 
 [section steps/stage4]
