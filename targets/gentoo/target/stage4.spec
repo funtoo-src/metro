@@ -2,23 +2,13 @@
 # generators are targets that build on top of a stage3 to produce various
 # specialized images such as a webserver, database or container images.
 
-[collect ./common.spec]
-[collect ./stage3-derivative.spec]
-[collect ../steps/capture/tar.spec]
+[collect ./stage.spec]
 [collect ../steps/symlink.spec]
 
 [section target]
 
-name: $[stage4/name]-$[:subarch]-$[:version]
-name/current: $[stage4/name]-$[:subarch]-current
-
-[section steps]
-
-chroot/run: [
-#!/bin/bash
-$[[steps/setup]]
-$[[steps/stage4/run]]
-]
+name: $[stage4/name]-$[:subarch]-$[:build]-$[:version]
+name/current: $[stage4/name]-$[:subarch]-$[:build]-current
 
 [section trigger]
 

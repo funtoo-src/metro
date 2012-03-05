@@ -1,11 +1,14 @@
-[collect ../stage/stage4-generator.spec]
+[collect ../source/stage3.spec]
+[collect ../target/stage4.spec]
+[collect ../steps/capture/tar.spec]
 
 [section stage4]
 
 name: zentoo-base
 
-[section steps/stage4]
+[section steps]
 
-run: [
-# do nothing, just repack
+chroot/run: [
+#!/bin/bash
+$[[steps/setup]]
 ]

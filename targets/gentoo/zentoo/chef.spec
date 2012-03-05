@@ -1,4 +1,6 @@
-[collect ../stage/stage4-generator.spec]
+[collect ../source/stage3.spec]
+[collect ../target/stage4.spec]
+[collect ../steps/capture/tar.spec]
 
 [section stage4]
 
@@ -10,8 +12,10 @@ packages: [
 	app-admin/chef-server
 ]
 
-[section steps/stage4]
+[section steps]
 
-run: [
+chroot/run: [
+#!/bin/bash
+$[[steps/setup]]
 emerge $eopts $[zentoo/chef/packages] || exit 1
 ]
