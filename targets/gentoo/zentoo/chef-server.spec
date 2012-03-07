@@ -4,11 +4,16 @@
 
 [section stage4]
 
-name: zentoo-base
+name: chef-server
+
+packages: [
+	app-admin/chef-server
+]
 
 [section steps]
 
 chroot/run: [
 #!/bin/bash
 $[[steps/setup]]
+emerge $eopts $[stage4/packages] || exit 1
 ]

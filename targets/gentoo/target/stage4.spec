@@ -8,7 +8,7 @@
 [section target]
 
 name: $[stage4/name]-$[:subarch]-$[:build]-$[:version]
-name/current: $[stage4/name]-$[:subarch]-$[:build]-current
+name/current: $[stage4/name]-current
 
 [section trigger]
 
