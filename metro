@@ -183,6 +183,7 @@ class Metro:
             print "Running target %s with class %s" % (targetname, settings["target/class"])
             target.run()
             print "Target run complete"
+            print
 
     def find_target(self, settings):
         """
