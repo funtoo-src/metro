@@ -9,6 +9,7 @@ target/name: base
 packages: [
 	app-admin/chef
 	app-admin/denyhosts
+	app-admin/hddtemp
 	app-admin/lib_users
 	app-admin/logrotate
 	app-admin/pwgen
@@ -17,9 +18,8 @@ packages: [
 	app-admin/syslog-ng
 	app-admin/sysstat
 	app-arch/atool
-	app-arch/xz-utils
+	app-arch/unzip
 	app-backup/duply
-	app-editors/vim
 	app-misc/colordiff
 	app-misc/mc
 	app-misc/tmux
@@ -67,8 +67,10 @@ packages: [
 chroot/run: [
 #!/bin/bash
 $[[steps/setup]]
+
 emerge $eopts --noreplace mail-mta/postfix || exit 1
 emerge $eopts --noreplace $[stage4/packages] || exit 1
+
 rc-update add syslog-ng default
 rc-update add dcron default
 ]
