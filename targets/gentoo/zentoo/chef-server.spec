@@ -1,10 +1,11 @@
-[collect ../source/stage3.spec]
+[collect ../source/stage4.spec]
 [collect ../target/stage4.spec]
 [collect ../steps/capture/tar.spec]
 
 [section stage4]
 
-name: chef-server
+source/name: base
+target/name: chef-server
 
 packages: [
 	app-admin/chef-server
