@@ -23,7 +23,7 @@ cp /usr/share/zoneinfo/UTC /etc/localtime || exit 1
 
 # set the hostname
 echo 'hostname=livecd' > /etc/conf.d/hostname
-echo '127.0.0.1 livecd.local livecd localhost' > /etc/hosts
+echo '127.0.0.1 livecd.local livecd localhost' > /etc/hosts.orig
 
 # try to get a network address via dhcp
 echo 'dhcpcd eth0' > /etc/ifup.eth0
