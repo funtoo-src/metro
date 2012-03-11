@@ -61,4 +61,6 @@ mkisofs -l \
 	-c isolinux/boot.cat \
 	-no-emul-boot -boot-load-size 4 -boot-info-table \
 	$cdroot/ || exit 1
+
+rm -rf $cdroot || exit 1
 ]
