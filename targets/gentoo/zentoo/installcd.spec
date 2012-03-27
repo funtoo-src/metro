@@ -38,7 +38,17 @@ $[[steps/livecd]]
 
 [section files]
 
+# add some extra space so we scroll all the mingetty output out of the viewport
 motd/extra: [
+
+
+
+
+
+
+
+
+
 
  >>> Welcome to the $[release/name] Minimal Installation CD!
 
