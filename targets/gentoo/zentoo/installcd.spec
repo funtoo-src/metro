@@ -11,7 +11,7 @@ target/name: installcd
 
 packages: [
 	net-misc/ntp
-	sys-apps/module-init-tools
+	sys-apps/kmod
 	sys-fs/lvm2
 	sys-fs/xfsprogs
 ]
