@@ -71,6 +71,10 @@ $[[steps/setup]]
 emerge $eopts --noreplace mail-mta/postfix || exit 1
 emerge $eopts --noreplace $[stage4/packages] || exit 1
 
+rc-update add devfs sysinit
+rc-update add udev sysinit
+rc-update add udev-postmount default
+
 rc-update add syslog-ng default
 rc-update add dcron default
 ]
