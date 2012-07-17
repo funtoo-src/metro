@@ -36,7 +36,6 @@ packages: [
 	dev-vcs/git
 	mail-client/mailx
 	net-analyzer/bwm-ng
-	net-analyzer/iptraf-ng
 	net-analyzer/mtr
 	net-analyzer/netcat
 	net-analyzer/nmap
@@ -47,7 +46,6 @@ packages: [
 	net-ftp/lftp
 	net-misc/dhcpcd
 	net-misc/keychain
-	net-misc/telnet-bsd
 	net-misc/whois
 	sys-apps/ack
 	sys-apps/ethtool
