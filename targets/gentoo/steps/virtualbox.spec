@@ -12,10 +12,6 @@ cat <<EOF > profiles/$[target/name].sh
 $[[quickstart/profile]]
 EOF
 
-./quickstart -d profiles/$[target/name].sh
+./quickstart -v -d profiles/$[target/name].sh
 popd
-
-# halt and sleep until we're killed
-halt
-sleep 60
 ]

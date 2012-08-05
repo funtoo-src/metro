@@ -51,23 +51,19 @@ class VirtualboxTarget(BaseTarget):
         try:
             self.upload_file(glob.glob(self.settings["path/mirror/source"])[0])
             self.upload_file(glob.glob(self.settings["path/mirror/snapshot"])[0])
-
-            self.run_script_in_vm("steps/virtualbox/prerun", optional=True)
             self.run_script_in_vm("steps/virtualbox/run")
-            self.run_script_in_vm("steps/virtualbox/postrun", optional=True)
         except:
-            #self.destroy_vm()
+            self.destroy_vm()
             raise
 
-        # wait a few seconds so that the VM can shutdown itself
-        time.sleep(15)
+        self.wait_for_shutdown()
+        time.sleep(60)
 
-        self.shutdown_vm()
         self.run_script("steps/capture")
         self.run_script("trigger/ok/run", optional=True)
 
-        #self.destroy_vm()
-        #self.clean_path()
+        self.destroy_vm()
+        self.clean_path()
 
     def load_modules(self):
         for mod in ["vboxdrv", "vboxpci", "vboxnetadp", "vboxnetflt"]:
@@ -102,6 +98,18 @@ class VirtualboxTarget(BaseTarget):
 
         # start the vm
         self.vbm("startvm %s --type headless" % (self.name))
+
+    def wait_for_shutdown(self):
+        sys.stdout.write("Waiting for VM to shutdown .")
+        check_cmd = self.cmds["vbox"]+" list runningvms | /bin/fgrep -o "+self.name
+
+        while True:
+            sys.stdout.write(".")
+            out = subprocess.check_output(check_cmd, shell=True).strip()
+            if out == self.name:
+                sys.stdout.write(" done\n")
+                break
+            time.sleep(1)
 
     def shutdown_vm(self):
         try:
@@ -161,6 +169,9 @@ class VirtualboxTarget(BaseTarget):
         ssh.stdin.write("\n".join(self.settings[key]))
         ssh.stdin.close()
         ssh.wait()
+
+        if ssh.returncode != 0:
+            raise MetroError, "Command failure (key %s, return value %s)" % (key, repr(ssh.returncode))
 
     def upload_file(self, path):
         print "Uploading \"%s\"" % (path)

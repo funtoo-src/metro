@@ -6,11 +6,11 @@
 
 [section stage4]
 
-source/name: base
+source/name: chef-server
 
 [section virtualbox]
 
-target/name: base
+target/name: chef-server
 
 memory: 2048
 hddsize: 80
@@ -22,7 +22,7 @@ name: installcd
 [section quickstart]
 
 profile: [
-. profiles/vagrant-base.sh
+. profiles/vagrant-chef-server.sh
 stage_uri file://$(ls -1 /tmp/$(basename "$[path/mirror/source]"))
 tree_type snapshot file://$(ls -1 /tmp/$(basename "$[path/mirror/snapshot]"))
 ]
