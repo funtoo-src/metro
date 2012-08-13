@@ -5,7 +5,8 @@
 class: virtualbox
 
 name: $[virtualbox/target/name]-$[:subarch]-$[:build]-$[:version]
-name/current: $[virtualbox/target/name]-current
+name/latest: $[virtualbox/target/name]-$[path/mirror/link/suffix]
+name/full_latest: $[virtualbox/target/name]-$[:subarch]-$[:build]-$[path/mirror/link/suffix]
 
 [section trigger]
 

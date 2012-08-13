@@ -82,6 +82,7 @@ class BaseTarget:
             print "File %s already exists - skipping..." % self.settings[key]
             return True
         else:
+            print "File %s does not exist - running target..." % self.settings[key]
             return False
 
     def check_required_files(self):
