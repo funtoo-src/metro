@@ -106,9 +106,30 @@ fi
 
 prerun: [
 #!/bin/bash
-rm -f /etc/make.profile
-ln -sf ../usr/portage/profiles/$[portage/profile] /etc/make.profile || exit 1
-echo "Set Portage profile to $[portage/profile]."
+rm -f /etc/make.profile 
+pf=""
+pf=$[profile/format:zap]
+if [ "$pf" = "new" ]; then
+	# new-style profiles
+	install -d /etc/portage/make.profile
+	cat > /etc/portage/make.profile/parent << EOF
+$[profile/arch:zap]
+$[profile/build:zap]
+$[profile/flavor:zap]
+EOF
+	mixins=""
+	mixins=$[profile/mix-ins:zap]
+	for mixin in $mixins; do
+		echo $mixin >> /etc/portage/make.profile/parent
+	done
+	echo "New-style profile settings:"
+	cat /etc/portage/make.profile/parent
+else
+	# classic profiles
+	echo
+	ln -sf ../usr/portage/profiles/$[portage/profile:zap] /etc/make.profile || exit 1
+	echo "Set Portage profile to $[portage/profile:zap]."
+fi
 ]
 
 # do any cleanup that you need with things bind mounted here:
@@ -164,8 +185,17 @@ then
 	done
 else
 	# stage1 - make sure we include our make.conf and profile link...
-	rm -f $ROOT/etc/make.conf $ROOT/etc/make.profile || exit 3
-	cp -a /etc/make.conf /etc/make.profile $ROOT/etc || exit 4
+	pf=""
+	pf=$[profile/format:zap]
+	if [ "$pf" = "new" ]; then
+		rm -f $ROOT/etc/make.conf $ROOT/etc/portage/make.profile/parent || exit 3
+		install -d $ROOT/etc/portage/make.profile
+		cp -a /etc/portage/make.profile/parent $ROOT/etc/portage/make.profile/parent || exit 4
+		cp -a /etc/make.conf $ROOT/etc/make.conf || exit 4
+	else
+		rm -f $ROOT/etc/make.conf $ROOT/etc/make.profile || exit 3
+		cp -a /etc/make.conf /etc/make.profile $ROOT/etc || exit 4
+	fi
 fi
 # clean up temporary locations. Note that this also ends up removing our scripts, which
 # exist in /tmp inside the chroot. So after this cleanup, any execution inside the chroot
@@ -176,7 +206,7 @@ rm -rf $ROOT/var/cache/edb/dep/*
 rm -f $ROOT/etc/.pwd.lock
 for x in passwd group shadow
 do
-	# install a backup, but make sure it is the same as the current file, so we
+	# install a backup, but make sure it is the same as the latest file, so we
 	# don't archive up any stale and potentially bad (personal password) info.
 	rm -f $ROOT/etc/${x}-
 	cp -a $ROOT/etc/${x} $ROOT/etc/${x}-

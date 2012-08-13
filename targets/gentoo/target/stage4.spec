@@ -3,8 +3,9 @@
 
 [section target]
 
-name: $[stage4/target/name]-$[:subarch]-$[:build]-$[:version]
-name/current: $[stage4/target/name]-current
+name: $[:build]-$[:subarch]-$[stage4/target/name]-$[:version]
+name/full_latest: $[:build]-$[:subarch]-$[stage4/target/name]-latest
+name/latest: $[:build]-$[stage4/target/name]-latest
 
 [section trigger]
 

@@ -26,7 +26,7 @@ export USE="-* bootstrap `python /tmp/bootstrap.py --use`"
 # adding oneshot below so "libtool" doesn't get added to the world file... 
 # libtool should be in the system profile, but is not currently there it seems.
 emerge $eopts --oneshot `python /tmp/bootstrap.py --pkglist` || exit 1
-emerge --clean
+emerge --clean 
 emerge --prune sys-devel/gcc || exit 1
 
 # Currently, a minimal, barely functional Python is installed. Upgrade to
@@ -34,7 +34,10 @@ emerge --prune sys-devel/gcc || exit 1
 # build:
 
 unset USE
-emerge $eopts --oneshot dev-lang/python || exit 1
+for atom in `portageq match / dev-lang/python`
+do
+	emerge $eopts --oneshot =$atom || exit 1
+done
 
 gcc-config $(gcc-config --get-current-profile)
 

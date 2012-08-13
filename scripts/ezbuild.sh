@@ -46,6 +46,4 @@ do
 		target/build: $BUILD \
 		target/subarch: $SUBARCH \
 		target/version: $VERSION
-
-	#"${ROOT}"/scripts/vbox-create.sh $SUBARCH $VERSION
 done
