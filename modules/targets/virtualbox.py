@@ -105,8 +105,9 @@ class VirtualboxTarget(BaseTarget):
 
         while True:
             sys.stdout.write(".")
-            out = subprocess.check_output(check_cmd, shell=True).strip()
-            if out == self.name:
+            try:
+                subprocess.check_output(check_cmd, shell=True)
+            except subprocess.CalledProcessError:
                 sys.stdout.write(" done\n")
                 break
             time.sleep(1)
