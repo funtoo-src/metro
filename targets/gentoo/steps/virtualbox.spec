@@ -14,4 +14,6 @@ EOF
 
 ./quickstart -v -d profiles/$[target/name].sh
 popd
+
+true
 ]
