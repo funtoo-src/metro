@@ -1,6 +1,6 @@
 [section path/mirror]
 
-generator: $[:generator/subpath]/$[generator/name].iso
+generator: $[]/$[:generator/subpath]/$[generator/name].iso
 
 [section generator]
 
