@@ -90,7 +90,9 @@ class VirtualboxTarget(BaseTarget):
         # create hostonly network
         ifcmd = self.cmds["vbox"]+" hostonlyif create 2>/dev/null | /bin/egrep -o 'vboxnet[0-9]+'"
         self.ifname = subprocess.check_output(ifcmd, shell=True).strip()
-        self.vbm("hostonlyif ipconfig %s --ip 10.99.99.1" % (self.ifname))
+        self.vbm("hostonlyif ipconfig %s --ip 10.99.99.1" % (self.ifname,))
+        self.cmd("ip link set %s up" % (self.ifname,))
+        self.cmd("ip addr add 10.99.99.1/24 dev %s" % (self.ifname,))
 
         # setup vm networking
         self.vbm("modifyvm %s --nic1 nat --nic2 hostonly" % (self.name))
