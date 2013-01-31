@@ -199,6 +199,7 @@ else
 	else
 		mkconf=/etc/portage/make.conf
 	fi
+	install -d $ROOT/etc/portage || exit 2
 	if [ "$pf" = "new" ]; then
 		rm -f $ROOT/etc/portage/make.profile/parent || exit 3
 		install -d $ROOT/etc/portage/make.profile
