@@ -10,68 +10,40 @@ die() {
 	exit 1
 }
 
-run() {
-	echo Running $*
-	$*
-	return $?
-}
-
 do_help() {
 	cat << EOF
 
   Metro Automation Engine Script
   by Daniel Robbins (drobbins@funtoo.org)
+  by Benedikt Böhm (hollow@gentoo.org)
 
-  Usage: $0 build arch [ full|freshen|quick [date] ]
+  Usage: $0 <build> <arch>..
   Examples:
-  	# $0 funtoo-stable generic_64
-	# $0 funtoo-current core2_32 freshen
-	# $0 gentoo pentium4 full 2009.01.03
+    # $0 zentoo amd64
+    # $0 ~funtoo core2
+
 EOF
 }
 
-if [ "$METRO" = "" ]
-then
-	METRO=/usr/bin/metro
-fi
-if ! [ -e "$METRO" ] && [ -x "$(pwd)/metro" ]
-then
-	METRO="$(pwd)/metro"
-fi
-if [ ! -e $METRO ]
-then
-	die "Metro is required for build.sh to run"
-fi
+ROOT=$(realpath $(dirname $0)/../)
+METRO="${ROOT}"/metro
 
-if [ $# -lt 2 ] || [ $# -gt 4 ]
+if [ $# -lt 2 ]
 then
 	do_help
-	die "This script requires two, three or four arguments"
+	die "This script requires two or more arguments"
 fi
 
 BUILD="$1"
-if [ "$2" == "snapshot" ]
-then
-	[ "$#" -ge "3" ] && VERS=$3 || VERS=`date +%Y-%m-%d`
-	run $METRO target/build: $BUILD target: snapshot target/version: $VERS || die "snapshot failure"
-else
-	SUBARCH="$2"
-	extras=""
-	if [ "$#" -ge "3" ]
-	then
-		MODE=$3
-		modesp="${3##*+}"
-		if [ "$modesp" != "$MODE" ]; then
-			extras=$modesp
-			MODE="${3%%+*}"
-		fi
-	else
-		MODE=full
-	fi
-	[ "$#" -ge "4" ] && VERS=$4 || VERS=`date +%Y-%m-%d`
-	if [ -n "$extras" ]; then
-		extras="multi/extras: $extras"
-	fi
-	run $METRO -d multi: yes target/build: $BUILD target/subarch: $SUBARCH target/version: $VERS multi/mode: $MODE $extras || die "build failure"
-fi
+VERSION=${VERSION:-$(date +%Y%m%d)}
+shift
 
+for SUBARCH in "$@"
+do
+	nice -n 39 ionice -c 3 $METRO \
+		multi: yes \
+		multi/mode: ${MODE:-full} \
+		target/build: $BUILD \
+		target/subarch: $SUBARCH \
+		target/version: $VERSION
+done
