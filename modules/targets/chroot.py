@@ -12,7 +12,7 @@ class ChrootTarget(BaseTarget):
         self.required_files.append("path/mirror/source")
 
         # define general linux mount points
-        self.mounts = {"/proc": "/proc"}
+        self.mounts = {"/proc": "/proc", "/dev/shm": "/dev/shm"}
 
         if not self.settings.has_key("target/class"):
             return
