@@ -13,6 +13,7 @@ export CLEAN_DELAY=0
 export EBEEP_IGNORE=0
 export EPAUSE_IGNORE=0
 export CONFIG_PROTECT="-* /etc/locale.gen"
+export COLLISION_IGNORE="/etc/init.d/udev-postmount"
 if [ -d /var/tmp/cache/compiler ]
 then
 	if ! [ -e /usr/bin/ccache ] 
@@ -246,6 +247,8 @@ fi
 # locale-archive can be ~81 MB; this should shrink it to 2MB.
 rm -f /usr/lib*/locale/locale-archive
 locale-gen
+
+rm -rf $ROOT/run/*
 ]
 
 postclean: [
