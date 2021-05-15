@@ -68,6 +68,7 @@ if [ -n "$gcc_list" ]; then
 		echo "No gcc versions to clean (installed: $(cd /var/db/pkg/sys-devel; ls -d gcc-[0-9]*))"
 fi
 
+emerge -1u $eopts sys-apps/portage || die
 #emerge -1u $eopts sys-devel/gcc || die
 emerge -C gentoolkit
 cd /var/git/meta-repo/kits/*/*/python-exec

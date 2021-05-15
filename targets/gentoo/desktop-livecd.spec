@@ -1,6 +1,8 @@
 [collect ./source/stage3.spec]
 [collect ./target/stage4.spec]
-[collect ./steps/capture/tar.spec]
+[collect ./generator/livecd.spec]
+[collect ./steps/livecd.spec]
+[collect ./steps/capture/livecd.spec]
 
 [section stage4]
 

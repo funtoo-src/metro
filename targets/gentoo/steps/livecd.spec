@@ -1,7 +1,7 @@
 [section steps]
 
 livecd: [
-emerge $eopts --noreplace app-misc/livecd-tools net-dialup/mingetty net-misc/dhcpcd sys-apps/hwsetup || exit 1
+emerge $eopts --noreplace app-misc/livecd-tools net-dialup/mingetty net-misc/dhcpcd sys-apps/hwsetup dev-util/strace x11-terms/xterm || exit 1
 
 # setup init scripts
 rc-update del keymaps boot
@@ -22,20 +22,15 @@ mkdir -p /root/.ssh
 chmod 0700 /root/.ssh
 curl -s -L https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub > /root/.ssh/authorized_keys
 
-# set timezone
-rm -rf /etc/localtime
-cp /usr/share/zoneinfo/UTC /etc/localtime || exit 1
-
-# set the hostname
-echo 'hostname=livecd' > /etc/conf.d/hostname
-echo '127.0.0.1 livecd.local livecd localhost' > /etc/hosts.orig
-
 # try to get a network address via dhcp
 echo 'dhcpcd eth0' > /etc/ifup.eth0
 
 # for our virtualbox target we need this hostonly interface
 echo 'ip link set eth1 up' > /etc/ifup.eth1
 echo 'ip addr add 10.99.99.2/24 dev eth1' >> /etc/ifup.eth1
+
+# set gdm
+gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/funtoo/FuntooSwirl.jpg
 
 # for hwsetup
 mkdir -p /etc/sysconfig
@@ -67,4 +62,9 @@ fi
 # save some space
 emerge --depclean || exit 1
 rm -rf /usr/lib/debug || exit 1
+
+# set user and reset passwords
+useradd funtoo
+passwd -d funtoo
+passwd -d root
 ]

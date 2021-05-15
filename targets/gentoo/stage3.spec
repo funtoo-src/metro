@@ -26,6 +26,9 @@ emerge $eopts -e system || exit 1
 # zap the world file and emerge packages
 rm -f /var/lib/portage/world || exit 2
 emerge $eopts $[emerge/packages/first:zap] || exit 1
+sed -i -e '/MODULES_FS/s/"$/ overlay hfsplus isofs udf loop"/' \
+	-e '/MODULES_CRYPTO/s/"$/ algif_skcipher af_alg crc32_generic"/' \
+	/usr/share/genkernel/arch/x86_64/modules_load || exit 1
 emerge $eopts $[emerge/packages:zap] || exit 1
 
 # add default runlevel services
