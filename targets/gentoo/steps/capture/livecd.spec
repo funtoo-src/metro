@@ -67,21 +67,5 @@ grub-mkrescue -J -l -R \
 	-o $[path/mirror/target] \
 	$cdroot/ || exit 1
 
-# Extract EFI image from iso
-install -d $cdroot/isotmp $cdroot/efitmp
-mount $[path/mirror/target].iso $cdroot/isotmp
-mount $cdroot/isotmp/efi.img $cdroot/efitmp
-cp -r $cdroot/efitmp/* $cdroot/
-umount $cdroot/efitmp
-umount $cdroot/isotmp
-rm $[path/mirror/target].iso
-rm -r $cdroot/efitmp $cdroot/isotmp
-
-# Recreate iso image
-grub-mkrescue -J -l -R \
-	-A "$[livecd/name]" \
-	-o $[path/mirror/target] \
-	$cdroot/ || exit 1
-
 rm -rf $cdroot || exit 1
 ]

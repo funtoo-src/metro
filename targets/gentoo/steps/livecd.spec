@@ -29,9 +29,6 @@ echo 'dhcpcd eth0' > /etc/ifup.eth0
 echo 'ip link set eth1 up' > /etc/ifup.eth1
 echo 'ip addr add 10.99.99.2/24 dev eth1' >> /etc/ifup.eth1
 
-# set gdm
-gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/funtoo/FuntooSwirl.jpg
-
 # for hwsetup
 mkdir -p /etc/sysconfig
 
@@ -62,9 +59,4 @@ fi
 # save some space
 emerge --depclean || exit 1
 rm -rf /usr/lib/debug || exit 1
-
-# set user and reset passwords
-useradd funtoo
-passwd -d funtoo
-passwd -d root
 ]

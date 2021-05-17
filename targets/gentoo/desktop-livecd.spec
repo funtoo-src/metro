@@ -60,4 +60,13 @@ fi
 for svc in NetworkManager avahi-daemon bluetooth metalog xdm $extra_initd; do
 	rc-update add $svc default
 done
+
+# set background
+gsettings set org.gnome.desktop.background picture-uri file:///usr/share/backgrounds/funtoo/FuntooSwirl.jpg
+
+# set user and reset passwords
+useradd funtoo
+passwd -d funtoo
+passwd -d root
+
 ]
