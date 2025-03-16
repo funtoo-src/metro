@@ -33,7 +33,7 @@ emerge $eopts -e system || exit 1
 # hack for binutils-libs needing a rebuild for libctf.so.0.0.0 -- build from source, not package cache
 emerge -1 binutils-libs || exit 1
 # zap the world file and emerge packages
-rm -f /var/lib/portage/world || exit 2
+/bin/rm -f /var/lib/portage/world || exit 2
 emerge $eopts $[emerge/packages/first:zap] || exit 1
 emerge $eopts $[emerge/packages:zap] || exit 1
 
